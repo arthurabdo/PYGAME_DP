@@ -10,6 +10,7 @@ class COBRA:
     def __init__(self):
         self.corpo = [Vector2(5,10), Vector2(6,10), Vector2(7,10)]
         self.direcao = Vector2(1,0)
+        self.novo_corpo= False
         
     def desenhar_cobra(self):
         for bloco in self.corpo: # criando um retangulo 
@@ -21,9 +22,19 @@ class COBRA:
 
     # movendo a cobra 
     def movendo_cobra (self):
-        copia_corpo = self.corpo[:-1] # copiando o corpo sem o ultimo bloco
-        copia_corpo.insert(0, copia_corpo[0] + self.direcao) # adicionando um novo elemento 
-        self.corpo = copia_corpo[:]
+        if self.novo_corpo== True:
+            copia_corpo = self.corpo[:] # copiando o corpo adicionando mais um pedaco a ele 
+            copia_corpo.insert(0, copia_corpo[0] + self.direcao) # adicionando um novo elemento 
+            self.corpo = copia_corpo[:]
+            self.novo_corpo= False
+        
+        else:
+            copia_corpo = self.corpo[:-1] # copiando o corpo sem o ultimo bloco
+            copia_corpo.insert(0, copia_corpo[0] + self.direcao) # adicionando um novo elemento 
+            self.corpo = copia_corpo[:]
+
+    def adiciona_corpo(self):
+        self.novo_corpo= True
 
 
 # desenhando a fruta, que alimenta a cobra e onde ela vai aparecer na tela 
@@ -61,6 +72,7 @@ class MAIN:
             # reposiciona a fruta
             self.pessego.atualiza_posicao()
             # adiciona corpo na cobra
+            self.cobra.adiciona_corpo()
 
 
 pygame.init()
