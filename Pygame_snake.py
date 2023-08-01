@@ -1,7 +1,6 @@
 # inicializacao pygame e outras bibliotecas
 import sys
 import pygame
-import random
 from pygame.math import Vector2
 from random import randint
 
@@ -35,7 +34,6 @@ class COBRA:
 
     def adiciona_corpo(self):
         self.novo_corpo= True
-
 
 # desenhando a fruta, que alimenta a cobra e onde ela vai aparecer na tela 
 class PESSEGO:
@@ -90,11 +88,6 @@ class MAIN:
     def game_over(self):
         pygame.quit()
         sys.exit()
-
-
-
-
-
 
 pygame.init()
 #tela 
