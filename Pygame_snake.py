@@ -103,7 +103,7 @@ fps = pygame.time.Clock()
 tamanho = 35
 numero = 20
 tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
-pessego_importado = pygame.image.load('emoji.pessego').convert_alpha()
+pessego_importado = pygame.image.load('emoji.pessego.png').convert_alpha()
 
 ATUALIZACAO_TELA = pygame.USEREVENT
 pygame.time.set_timer(ATUALIZACAO_TELA, 150)
