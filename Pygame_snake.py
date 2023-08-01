@@ -44,7 +44,8 @@ class PESSEGO:
     
     def desenhar_pessego(self):
         pessego_rect = pygame.Rect(int(self.pos.x * tamanho),int(self.pos.y * tamanho), tamanho, tamanho)
-        pygame.draw.rect(tela, (250,88,42), pessego_rect)
+        tela.blit(pessego_importado, pessego_rect)
+        # pygame.draw.rect(tela, (250,88,42), pessego_rect)
     
 
     def atualiza_posicao(self):
@@ -102,6 +103,7 @@ fps = pygame.time.Clock()
 tamanho = 35
 numero = 20
 tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
+pessego_importado = pygame.image.load('emoji.pessego').convert_alpha()
 
 ATUALIZACAO_TELA = pygame.USEREVENT
 pygame.time.set_timer(ATUALIZACAO_TELA, 150)
