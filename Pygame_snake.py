@@ -8,7 +8,7 @@ from random import randint
 # desenahndo a cobra
 class COBRA:
     def __init__(self):
-        self.corpo = [Vector2(5,10), Vector2(6,10), Vector2(7,10)]
+        self.corpo = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
         self.direcao = Vector2(1,0)
         self.novo_corpo= False
         
@@ -61,6 +61,7 @@ class MAIN:
     def update(self):
         self.cobra.movendo_cobra()
         self.confirma_colisao()
+        self.verifica_morte()
     
     def desenha_elementos(self):
         self.pessego.desenhar_pessego()
@@ -73,6 +74,25 @@ class MAIN:
             self.pessego.atualiza_posicao()
             # adiciona corpo na cobra
             self.cobra.adiciona_corpo()
+
+    def verifica_morte(self):
+        # verifica se a cobra bateu na parede
+        if not 0<= self.cobra.corpo[0].x < numero or not 0<= self.cobra.corpo[0].y < numero:
+            self.game_over()
+       
+        #verifica se a cobra bateu em seu proprio corpo
+        for corpo in self.cobra.corpo[1:]:
+            if corpo== self.cobra.corpo[0]:
+                self.game_over()
+
+
+    def game_over(self):
+        pygame.quit()
+        sys.exit()
+
+
+
+
 
 
 pygame.init()
@@ -101,13 +121,21 @@ while True:
             jogo_principal.update()
         if jogo.type == pygame.KEYDOWN:
             if jogo.key == pygame.K_UP: # para cima 
-                jogo_principal.cobra.direcao = Vector2(0, -1)
+                # nao deixa a cobra entrar no proprio corpo
+                if jogo_principal.cobra.direcao.y != 1:
+                    jogo_principal.cobra.direcao = Vector2(0, -1)
             if jogo.key == pygame.K_RIGHT: # para direita
-                jogo_principal.cobra.direcao = Vector2(1, 0)   
+                # nao deixa a cobra entrar no proprio corpo
+                if jogo_principal.cobra.direcao.x != -1:
+                    jogo_principal.cobra.direcao = Vector2(1, 0)   
             if jogo.key == pygame.K_DOWN: # para baixo 
-                jogo_principal.cobra.direcao = Vector2(0, 1)
+                # nao deixa a cobra entrar no proprio corpo
+                if jogo_principal.cobra.direcao.y != -1:
+                    jogo_principal.cobra.direcao = Vector2(0, 1)
             if jogo.key == pygame.K_LEFT: # para esquerda 
-                jogo_principal.cobra.direcao = Vector2(-1, 0) 
+                # nao deixa a cobra entrar no proprio corpo
+                if jogo_principal.cobra.direcao.x != 1:
+                    jogo_principal.cobra.direcao = Vector2(-1, 0) 
 
     tela.fill((2,15,60))
     jogo_principal.desenha_elementos()
