@@ -61,6 +61,15 @@ while True:
             sys.exit()
         if jogo.type == ATUALIZACAO_TELA:
             cobra.movendo_cobra()
+        if jogo.type == pygame.KEYDOWN:
+            if jogo.key == pygame.K_UP: # para cima 
+                cobra.direcao = Vector2(0, -1)
+            if jogo.key == pygame.K_RIGHT: # para direita
+                cobra.direcao = Vector2(1, 0)   
+            if jogo.key == pygame.K_DOWN: # para baixo 
+                cobra.direcao = Vector2(0, 1)
+            if jogo.key == pygame.K_LEFT: # para esquerda 
+                cobra.direcao = Vector2(-1, 0) 
 
     tela.fill((2,15,60))
     pessego.desenhar_pessego()
