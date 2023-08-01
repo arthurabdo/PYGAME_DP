@@ -29,13 +29,38 @@ class COBRA:
 # desenhando a fruta, que alimenta a cobra e onde ela vai aparecer na tela 
 class PESSEGO:
     def __init__(self):
-        self.x = randint(0, numero - 1)
-        self.y = randint(0, numero - 1)
-        self.pos = Vector2(self.x, self.y)
+        self.atualiza_posicao()
     
     def desenhar_pessego(self):
         pessego_rect = pygame.Rect(int(self.pos.x * tamanho),int(self.pos.y * tamanho), tamanho, tamanho)
         pygame.draw.rect(tela, (250,88,42), pessego_rect)
+    
+
+    def atualiza_posicao(self):
+        self.x = randint(0, numero - 1)
+        self.y = randint(0, numero - 1)
+        self.pos = Vector2(self.x, self.y)
+
+#criacao do loop do jogo principal e ajuda a organizacao geral do codigo
+class MAIN:
+    def __init__(self):
+        self.cobra= COBRA()
+        self.pessego= PESSEGO()
+
+    def update(self):
+        self.cobra.movendo_cobra()
+        self.confirma_colisao()
+    
+    def desenha_elementos(self):
+        self.pessego.desenhar_pessego()
+        self.cobra.desenhar_cobra()
+
+    # cofnirma que a cobra comeu o pessego
+    def confirma_colisao(self):
+        if self.pessego.pos== self.cobra.corpo[0]:
+            # reposiciona a fruta
+            self.pessego.atualiza_posicao()
+            # adiciona corpo na cobra
 
 
 pygame.init()
@@ -46,11 +71,12 @@ tamanho = 35
 numero = 20
 tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
 
-pessego = PESSEGO()
-cobra = COBRA()
-
 ATUALIZACAO_TELA = pygame.USEREVENT
 pygame.time.set_timer(ATUALIZACAO_TELA, 150)
+
+#variavel que se refere ao jogo principal
+jogo_principal= MAIN()
+
 
 # loop do jogo
 while True:
@@ -60,19 +86,18 @@ while True:
             pygame.quit()
             sys.exit()
         if jogo.type == ATUALIZACAO_TELA:
-            cobra.movendo_cobra()
+            jogo_principal.update()
         if jogo.type == pygame.KEYDOWN:
             if jogo.key == pygame.K_UP: # para cima 
-                cobra.direcao = Vector2(0, -1)
+                jogo_principal.cobra.direcao = Vector2(0, -1)
             if jogo.key == pygame.K_RIGHT: # para direita
-                cobra.direcao = Vector2(1, 0)   
+                jogo_principal.cobra.direcao = Vector2(1, 0)   
             if jogo.key == pygame.K_DOWN: # para baixo 
-                cobra.direcao = Vector2(0, 1)
+                jogo_principal.cobra.direcao = Vector2(0, 1)
             if jogo.key == pygame.K_LEFT: # para esquerda 
-                cobra.direcao = Vector2(-1, 0) 
+                jogo_principal.cobra.direcao = Vector2(-1, 0) 
 
     tela.fill((2,15,60))
-    pessego.desenhar_pessego()
-    cobra.desenhar_cobra()
+    jogo_principal.desenha_elementos()
     pygame.display.update()
     fps.tick(120)
