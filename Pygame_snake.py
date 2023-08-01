@@ -16,7 +16,7 @@ class COBRA:
             pos_x = int(bloco.x * tamanho) # posição x
             pos_y = int(bloco.y * tamanho) # posição y
             bloco_rect = pygame.Rect(pos_x, pos_y, tamanho, tamanho)
-            pygame.draw.rect(tela, (230, 230, 250), bloco_rect) # desenhando o retangulo -- cobra 
+            pygame.draw.rect(tela, (83, 0, 210), bloco_rect) # desenhando o retangulo -- cobra 
             # é draw ou desenhar?
 
     # movendo a cobra 
