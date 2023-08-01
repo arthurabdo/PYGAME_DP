@@ -9,6 +9,7 @@ from random import randint
 class COBRA:
     def __init__(self):
         self.corpo = [Vector2(5,10), Vector2(6,10), Vector2(7,10)]
+        self.direcao = Vector2(1,0)
         
     def desenhar_cobra(self):
         for bloco in self.corpo: # criando um retangulo 
@@ -17,6 +18,12 @@ class COBRA:
             bloco_rect = pygame.Rect(pos_x, pos_y, tamanho, tamanho)
             pygame.draw.rect(tela, (230, 230, 250), bloco_rect) # desenhando o retangulo -- cobra 
             # é draw ou desenhar?
+
+    # movendo a cobra 
+    def movendo_cobra (self):
+        copia_corpo = self.corpo[:-1] # copiando o corpo sem o ultimo bloco
+        copia_corpo.insert(0, copia_corpo[0] + self.direcao) # adicionando um novo elemento 
+        self.corpo = copia_corpo[:]
 
 
 # desenhando a fruta, que alimenta a cobra e onde ela vai aparecer na tela 
@@ -42,6 +49,9 @@ tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
 pessego = PESSEGO()
 cobra = COBRA()
 
+ATUALIZACAO_TELA = pygame.USEREVENT
+pygame.time.set_timer(ATUALIZACAO_TELA, 150)
+
 # loop do jogo
 while True:
     #fechar o jogo
@@ -49,6 +59,9 @@ while True:
         if jogo.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if jogo.type == ATUALIZACAO_TELA:
+            cobra.movendo_cobra()
+
     tela.fill((2,15,60))
     pessego.desenhar_pessego()
     cobra.desenhar_cobra()
