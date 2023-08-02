@@ -110,8 +110,8 @@ class MAIN:
     def desenha_fonte(self):
         pontuacao= str(len(self.cobra.corpo)-3)
         superfice_texto= fonte.render(pontuacao,True,(60, 75, 10))
-        pontuacao_x= int(tamanho* numero -50)
-        pontuacao_y= int(tamanho *numero- 40)
+        pontuacao_x= int(tamanho* numero -40)
+        pontuacao_y= int(tamanho *numero- 650)
         pontuacao_rect= superfice_texto.get_rect(center= (pontuacao_x, pontuacao_y))
         pessego_rect= pessego_importado.get_rect(midright= (pontuacao_rect.left, pontuacao_rect.centery))
         
