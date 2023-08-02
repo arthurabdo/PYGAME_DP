@@ -10,6 +10,7 @@ class COBRA:
         self.corpo = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
         self.direcao = Vector2(1,0)
         self.novo_corpo= False
+        self.crunch= pygame.mixer.Sound('Som/som-cobra-comendo-pygame.mp3')
         
     def desenhar_cobra(self):
         for bloco in self.corpo: # criando um retangulo 
@@ -34,6 +35,9 @@ class COBRA:
 
     def adiciona_corpo(self):
         self.novo_corpo= True
+
+    def toca_som(self):
+        self.crunch.play()
 
 # desenhando a fruta, que alimenta a cobra e onde ela vai aparecer na tela 
 class PESSEGO:
@@ -76,6 +80,13 @@ class MAIN:
             self.pessego.atualiza_posicao()
             # adiciona corpo na cobra
             self.cobra.adiciona_corpo()
+            # faz  som quando a cobra come
+            self.cobra.toca_som()
+        # nao permite que a frut seja criada no mesmo lugar em que a cobra ja esta
+        for parte in self.cobra.corpo[1:]:
+            if parte == self.pessego.pos:
+                self.pessego.randomize()
+        
 
     def verifica_morte(self):
         # verifica se a cobra bateu na parede
@@ -107,6 +118,7 @@ class MAIN:
                         grama = pygame.Rect(coluna * tamanho, linha * tamanho , tamanho, tamanho)
                         pygame.draw.rect(tela, grama_escura, grama)
 
+    # pontuacao no canto da tela enquanto o jogo roda
     def desenha_fonte(self):
         pontuacao= str(len(self.cobra.corpo)-3)
         superfice_texto= fonte.render(pontuacao,True,(60, 75, 10))
