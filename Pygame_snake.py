@@ -47,12 +47,13 @@ class PESSEGO:
     def desenhar_pessego(self):
         pessego_rect = pygame.Rect(int(self.pos.x * tamanho),int(self.pos.y * tamanho), tamanho, tamanho)
         tela.blit(pessego_importado, pessego_rect)
-        # pygame.draw.rect(tela, (250,88,42), pessego_rect)
+        #pygame.draw.rect(tela, (250,88,42), pessego_rect)
     
 
     def atualiza_posicao(self):
         self.x = randint(0, numero - 1)
         self.y = randint(0, numero - 1)
+        
         self.pos = Vector2(self.x, self.y)
 
 #criacao do loop do jogo principal e ajuda a organizacao geral do codigo
