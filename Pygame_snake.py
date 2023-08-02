@@ -63,8 +63,10 @@ class MAIN:
         self.verifica_morte()
     
     def desenha_elementos(self):
+        self.quadriculado_grama()
         self.pessego.desenhar_pessego()
         self.cobra.desenhar_cobra()
+        
 
     # cofnirma que a cobra comeu o pessego
     def confirma_colisao(self):
@@ -89,9 +91,22 @@ class MAIN:
         pygame.quit()
         sys.exit()
 
+
+    def quadriculado_grama(self):
+        grama_escura = (165,204,61)
+        for linha in range(numero):
+            if linha % 2 == 0:
+                for coluna in range(numero):
+                    if coluna % 2 == 0:
+                        grama = pygame.Rect(coluna * tamanho, linha * tamanho , tamanho, tamanho)
+                        pygame.draw.rect(tela, grama_escura, grama)
+            else: 
+                for coluna in range(numero):
+                    if coluna % 2 != 0:
+                        grama = pygame.Rect(coluna * tamanho, linha * tamanho , tamanho, tamanho)
+                        pygame.draw.rect(tela, grama_escura, grama)
 pygame.init()
 #tela 
-
 fps = pygame.time.Clock()
 tamanho = 35
 numero = 20
@@ -133,7 +148,7 @@ while True:
                 if jogo_principal.cobra.direcao.x != 1:
                     jogo_principal.cobra.direcao = Vector2(-1, 0) 
 
-    tela.fill((2,15,60))
+    tela.fill((140,170,30))
     jogo_principal.desenha_elementos()
     pygame.display.update()
     fps.tick(120)
