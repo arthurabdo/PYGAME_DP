@@ -97,6 +97,7 @@ tamanho = 35
 numero = 20
 tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
 pessego_importado = pygame.image.load('emoji.pessego.png').convert_alpha()
+tela_inicial = pygame.image.load('tela_inicial.png').convert_alpha()
 
 ATUALIZACAO_TELA = pygame.USEREVENT
 pygame.time.set_timer(ATUALIZACAO_TELA, 150)
@@ -107,7 +108,7 @@ jogo_principal= MAIN()
 
 # loop do jogo
 while True:
-    #fechar o jogo
+    
     for jogo in pygame.event.get():
         if jogo.type == pygame.QUIT:
             pygame.quit()
