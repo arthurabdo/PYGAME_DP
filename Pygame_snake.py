@@ -66,6 +66,7 @@ class MAIN:
         self.quadriculado_grama()
         self.pessego.desenhar_pessego()
         self.cobra.desenhar_cobra()
+        self.desenha_fonte()
         
 
     # cofnirma que a cobra comeu o pessego
@@ -105,6 +106,21 @@ class MAIN:
                     if coluna % 2 != 0:
                         grama = pygame.Rect(coluna * tamanho, linha * tamanho , tamanho, tamanho)
                         pygame.draw.rect(tela, grama_escura, grama)
+
+    def desenha_fonte(self):
+        pontuacao= str(len(self.cobra.corpo)-3)
+        superfice_texto= fonte.render(pontuacao,True,(60, 75, 10))
+        pontuacao_x= int(tamanho* numero -50)
+        pontuacao_y= int(tamanho *numero- 40)
+        pontuacao_rect= superfice_texto.get_rect(center= (pontuacao_x, pontuacao_y))
+        pessego_rect= pessego_importado.get_rect(midright= (pontuacao_rect.left, pontuacao_rect.centery))
+        
+        
+        tela.blit(superfice_texto,pontuacao_rect )
+        tela.blit(pessego_importado, pessego_rect )
+        
+
+
 pygame.init()
 #tela 
 fps = pygame.time.Clock()
@@ -113,6 +129,9 @@ numero = 20
 tela = pygame.display.set_mode((numero * tamanho, numero * tamanho))
 pessego_importado = pygame.image.load('emoji.pessego.png').convert_alpha()
 tela_inicial = pygame.image.load('tela_inicial.png').convert_alpha()
+fonte= pygame.font.Font(None, 30)
+
+
 
 ATUALIZACAO_TELA = pygame.USEREVENT
 pygame.time.set_timer(ATUALIZACAO_TELA, 150)
